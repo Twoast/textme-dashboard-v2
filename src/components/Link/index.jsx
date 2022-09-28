@@ -53,7 +53,6 @@ const Link = React.forwardRef(function Link(props, ref) {
     noLinkStyle,
     prefetch,
     replace,
-    role, // Link don't have roles.
     scroll,
     shallow,
     ...other

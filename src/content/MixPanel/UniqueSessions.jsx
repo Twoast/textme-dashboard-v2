@@ -17,7 +17,6 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-
 import { Chart } from 'src/components/Chart';
 import Text from 'src/components/Text';
 
@@ -63,7 +62,7 @@ const ListItemAvatarWrapper = styled(ListItemAvatar)(
   `
 );
 
-const MixPanelUniqueSessions = () => {
+function MixPanelUniqueSessions() {
   const theme = useTheme();
 
   const chartOptions = {
@@ -320,6 +319,6 @@ const MixPanelUniqueSessions = () => {
       </Grid>
     </Card>
   );
-};
+}
 
 export default MixPanelUniqueSessions;

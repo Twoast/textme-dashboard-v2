@@ -15,6 +15,8 @@ export default NextAuth({
   secret: process.env.REACT_APP_SECRET_KEY,
   callbacks: {
     redirect: async (url, _baseUrl) => {
+      console.log(url);
+      console.log(_baseUrl);
       return Promise.resolve('/login');
     },
   },

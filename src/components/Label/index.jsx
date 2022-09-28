@@ -51,7 +51,7 @@ const LabelWrapper = styled('span')(
 `
 );
 
-const Label = ({ className, color = 'secondary', children, ...rest }) => {
+const Label = ({ color = 'secondary', children, ...rest }) => {
   return (
     <LabelWrapper className={'MuiLabel-' + color} {...rest}>
       {children}

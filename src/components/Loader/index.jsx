@@ -11,17 +11,6 @@ const MainContent = styled(Box)(
   `
 );
 
-const LogoWrapper = styled(Box)(
-  ({ theme }) => `
-        display: flex;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: none;
-        }
-`
-);
-
 const TopWrapper = styled(Box)(
   ({ theme }) => `
     display: flex;
@@ -33,7 +22,7 @@ const TopWrapper = styled(Box)(
   `
 );
 
-function Loader() {
+const Loader = () => {
   return (
     <>
       <Head>
@@ -49,7 +38,7 @@ function Loader() {
                   display: { xs: 'none', sm: 'inline-block' },
                 }}
               >
-                <Image src="/static/images/logo/logo-loader.gif" width="600" height="600" priority />
+                <Image src="/static/images/logo/logo-loader.gif" alt="Loader" width="600" height="600" priority />
               </Box>
             </TopWrapper>
           </Container>
@@ -57,6 +46,6 @@ function Loader() {
       </MainContent>
     </>
   );
-}
+};
 
 export default Loader;

@@ -46,8 +46,8 @@ const UserBoxDescription = styled(Typography)(
 `
 );
 
-const HeaderUserbox = (props) => {
-  const { data: session, status } = useSession();
+const HeaderUserbox = () => {
+  const { data: session } = useSession();
 
   const user = {
     name: session.user.name,

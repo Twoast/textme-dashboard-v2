@@ -6,7 +6,7 @@ import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import MixPanelUniqueSessions from 'src/content/MixPanel/UniqueSessions';
 import SidebarLayout from 'src/layouts/SidebarLayout';
 
-function Home() {
+const Home = () => {
   const { data: session } = useSession();
 
   return (
@@ -34,7 +34,7 @@ function Home() {
       </Container>
     </>
   );
-}
+};
 
 export default Home;
 

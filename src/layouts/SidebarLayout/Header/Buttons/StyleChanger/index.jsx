@@ -47,7 +47,7 @@ ThemeChanger.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-function HeaderSearch() {
+const HeaderSearch = () => {
   const selected_theme = window.localStorage.getItem('appTheme') || 'PureLightTheme';
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(selected_theme);
@@ -71,6 +71,6 @@ function HeaderSearch() {
       <ThemeChanger selectedValue={selectedValue} open={open} onClose={handleClose} />
     </>
   );
-}
+};
 
 export default HeaderSearch;

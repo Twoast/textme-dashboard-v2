@@ -2,13 +2,9 @@ import { Menu, MenuItem } from '@mui/material';
 import { useRef, useState } from 'react';
 import Link from 'src/components/Link';
 
-function HeaderMenu() {
+const HeaderMenu = () => {
   const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -32,6 +28,6 @@ function HeaderMenu() {
       </Menu>
     </>
   );
-}
+};
 
 export default HeaderMenu;

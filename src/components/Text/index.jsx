@@ -44,7 +44,7 @@ const TextWrapper = styled('span')(
 `
 );
 
-const Text = ({ className, color = 'secondary', flex, children, ...rest }) => {
+const Text = ({ color = 'secondary', flex, children, ...rest }) => {
   return (
     <TextWrapper className={clsx('MuiText-' + color, { flexItem: flex })} {...rest}>
       {children}
@@ -54,7 +54,6 @@ const Text = ({ className, color = 'secondary', flex, children, ...rest }) => {
 
 Text.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
   color: PropTypes.oneOf(['primary', 'secondary', 'error', 'warning', 'success', 'info', 'black']),
 };
 

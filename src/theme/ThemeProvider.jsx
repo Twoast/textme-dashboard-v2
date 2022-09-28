@@ -3,7 +3,7 @@ import { StylesProvider } from '@mui/styles';
 import { createContext, useEffect, useState } from 'react';
 import { themeCreator } from './base';
 
-export const ThemeContext = createContext((_themeName) => {});
+export const ThemeContext = createContext();
 
 const ThemeProviderWrapper = (props) => {
   const [themeName, _setThemeName] = useState('PureLightTheme');

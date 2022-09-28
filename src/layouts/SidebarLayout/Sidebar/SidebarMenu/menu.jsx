@@ -1,4 +1,4 @@
-import SettingsPhoneIcon from '@mui/icons-material';
+import SettingsPhoneIcon from '@mui/icons-material/SettingsPhone';
 
 const SidebarRouterMenu = {
   menus: [

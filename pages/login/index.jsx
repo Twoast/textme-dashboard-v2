@@ -4,7 +4,6 @@ import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
 import { pink } from '@mui/material/colors';
 import { getSession, signIn } from 'next-auth/react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
 import Logo from 'src/components/LogoSign';
 import BaseLayout from 'src/layouts/BaseLayout';
@@ -30,8 +29,6 @@ const TopWrapper = styled(Box)(
 );
 
 const Login = () => {
-  const router = useRouter();
-
   return (
     <>
       <Head>

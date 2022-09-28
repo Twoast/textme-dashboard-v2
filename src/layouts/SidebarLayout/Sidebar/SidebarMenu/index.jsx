@@ -1,5 +1,6 @@
 import DesignServicesTwoToneIcon from '@mui/icons-material/DesignServicesTwoTone';
-import { alpha, Box, ListSubheader, styled } from '@mui/material';
+import { alpha, Box, Button, List, ListItem, ListSubheader, styled } from '@mui/material';
+import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
@@ -145,7 +146,7 @@ const SubMenuWrapper = styled(Box)(
 `
 );
 
-function SidebarMenu() {
+const SidebarMenu = () => {
   const { closeSidebar } = useContext(SidebarContext);
   const router = useRouter();
   const currentRoute = router.pathname;
@@ -206,6 +207,6 @@ function SidebarMenu() {
       </MenuWrapper>
     </>
   );
-}
+};
 
 export default SidebarMenu;

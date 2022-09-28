@@ -29,18 +29,18 @@ const TooltipWrapper = styled(({ className, ...props }) => <Tooltip {...props} c
   })
 );
 
-function Logo(props) {
+const Logo = (props) => {
   return (
     <TooltipWrapper title="TextMe Dashboard" arrow>
       <LogoWrapper href="/">
         {props.edition === 'small' ? (
-          <Image src="/static/images/logo/logo-small.png" width="100" height="100" priority />
+          <Image src="/static/images/logo/logo-small.png" alt="TextMe Logo" width="100" height="100" priority />
         ) : (
-          <Image src="/static/images/logo/logo.png" width="200" height="200" priority />
+          <Image src="/static/images/logo/logo.png" alt="TextMe Logo" width="200" height="200" priority />
         )}
       </LogoWrapper>
     </TooltipWrapper>
   );
-}
+};
 
 export default Logo;

@@ -1,8 +1,9 @@
-import { alpha, Box, darken, Divider, Drawer, lighten, styled, useTheme } from '@mui/material';
+import { alpha, Box, Button, darken, Divider, Drawer, lighten, styled, useTheme } from '@mui/material';
 import { useContext } from 'react';
 
+import Logo from 'src/components/LogoSign';
+import Scrollbar from 'src/components/Scrollbar';
 import { SidebarContext } from 'src/contexts/SidebarContext';
-
 import SidebarMenu from './SidebarMenu';
 
 const SidebarWrapper = styled(Box)(
@@ -17,7 +18,7 @@ const SidebarWrapper = styled(Box)(
 `
 );
 
-function Sidebar() {
+const Sidebar = () => {
   const { sidebarToggle, toggleSidebar } = useContext(SidebarContext);
   const closeSidebar = () => toggleSidebar();
   const theme = useTheme();
@@ -117,6 +118,6 @@ function Sidebar() {
       </Drawer>
     </>
   );
-}
+};
 
 export default Sidebar;

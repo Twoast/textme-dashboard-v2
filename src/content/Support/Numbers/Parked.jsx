@@ -54,7 +54,7 @@ const ParkedNumbers = () => {
   const handleLimitChange = (event) => {
     setLoading(true);
     const limit = parseInt(event.target.value);
-    const page = Math.ceil((pageLimit.page * pageLimit.limit) / limit) - 1;
+    let page = Math.ceil((pageLimit.page * pageLimit.limit) / limit) - 1;
     page = page <= 1 ? 0 : page;
     setPhoneNumbers([...Array(limit).keys()]);
     setPageLimit({ page, limit });

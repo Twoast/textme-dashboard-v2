@@ -9,7 +9,7 @@ import Sidebar from './Sidebar';
 
 const SidebarLayout = ({ children }) => {
   const theme = useTheme();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   switch (status) {
