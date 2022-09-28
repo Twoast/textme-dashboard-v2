@@ -1,7 +1,16 @@
 {
   "name": "textme-dashboard-v2",
   "version": "0.1.0",
+  "author": "TextMe Inc.",
+  "description": "The second version of TextMe's internal dashboard",
   "private": true,
+  "license" : "MIT",
+  "homepage": "https://github.com/Twoast/textme-dashboard-v2",
+  "engines": {
+    "node": "18.9.0",
+    "yarn": "please-use-npm",
+    "npm": "8.19.2"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
