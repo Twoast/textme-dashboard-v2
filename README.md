@@ -17,6 +17,6 @@ Then run `nvm use` at the root of the project. It'll make sure every developer w
 `eslint`: Run `yarn lint` to check of any lint
 `prettier`: Run `yarn prettier` to run & format the code if needed. (Remember it writes the code in-place)
 
-
 ### For those using VSCode
+
 We've created a `.vscode/` folder add the root of the project. It has a defined config to automatically run prettier.
