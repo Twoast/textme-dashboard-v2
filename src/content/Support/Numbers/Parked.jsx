@@ -14,52 +14,16 @@ import {
   TableRow,
   Tooltip,
   Typography,
-  useTheme,
 } from '@mui/material';
-import axios from 'axios';
-import { useState } from 'react';
+import { withTheme } from '@mui/styles';
 import ReactCountryFlag from 'react-country-flag';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
 
-const ParkedNumbers = () => {
-  const theme = useTheme();
-  const [isLoading, setLoading] = useState(true);
-  const [pageLimit, setPageLimit] = useState({ page: 0, limit: 25 });
-  const [phoneNumbers, setPhoneNumbers] = useState([...Array(pageLimit.limit).keys()]);
-  const [phoneNumberCount, setPhoneNumberCount] = useState(0);
+import withPaginatedApi from 'src/components/Content/APIPage';
 
-  const address = `https://mocki.io/v1/232690ad-a65f-4380-a1d1-ca906d5c27d9?page=${pageLimit.page + 1}&limit=${pageLimit.limit}`;
-  const fetcher = async (url) => await axios.get(url).then((res) => res.data);
-  const { data, error } = useSWR(address, fetcher);
-
-  const applyPagination = (phoneNumbers, page, limit) => {
-    return phoneNumbers.slice(page * limit, page * limit + limit);
-  };
-
-  if (error) toast.error("Couldn't fetch data");
-  if (data && isLoading) {
-    setLoading(false);
-    setPhoneNumberCount(data.total);
-    setPhoneNumbers(applyPagination(data.results, pageLimit.page, pageLimit.limit));
-  }
-
-  const handlePageChange = (_event, newPage) => {
-    setLoading(true);
-    setPageLimit({ ...pageLimit, page: newPage });
-  };
-
-  const handleLimitChange = (event) => {
-    setLoading(true);
-    const limit = parseInt(event.target.value);
-    let page = Math.ceil((pageLimit.page * pageLimit.limit) / limit) - 1;
-    page = page <= 1 ? 0 : page;
-    setPhoneNumbers([...Array(limit).keys()]);
-    setPageLimit({ page, limit });
-  };
-
+const API_ENDPOINT = 'phone_numbers/parked';
+const ParkedNumberComponent = (props) => {
   return (
     <Card>
       <Card>
@@ -74,7 +38,7 @@ const ParkedNumbers = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {phoneNumbers.map((phoneNumber, index) => {
+              {props.apiData.map((phoneNumber, index) => {
                 return (
                   <TableRow hover key={index}>
                     <TableCell>
@@ -86,10 +50,10 @@ const ParkedNumbers = () => {
                         noWrap
                         style={{ width: 150 }}
                       >
-                        {isLoading ? <Skeleton /> : phoneNumber.phone_number}
+                        {props.isLoading ? <Skeleton /> : phoneNumber.phone_number}
                       </Typography>
                       <Typography variant="body2" color="text.secondary" noWrap style={{ width: 70 }}>
-                        {isLoading ? (
+                        {props.isLoading ? (
                           <Skeleton />
                         ) : (
                           <>
@@ -99,16 +63,16 @@ const ParkedNumbers = () => {
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      {isLoading ? (
+                      {props.isLoading ? (
                         <Skeleton />
                       ) : (
                         <Tooltip title="Unpark number" arrow>
                           <IconButton
                             sx={{
                               '&:hover': {
-                                background: theme.colors.primary.lighter,
+                                background: props.theme.colors.primary.lighter,
                               },
-                              color: theme.palette.primary.main,
+                              color: props.theme.palette.primary.main,
                             }}
                             color="inherit"
                             size="small"
@@ -125,16 +89,16 @@ const ParkedNumbers = () => {
           </Table>
         </TableContainer>
         <Box p={2}>
-          {isLoading ? (
+          {props.isLoading ? (
             <Skeleton />
           ) : (
             <TablePagination
               component="div"
-              count={phoneNumberCount}
-              onPageChange={handlePageChange}
-              onRowsPerPageChange={handleLimitChange}
-              page={pageLimit.page}
-              rowsPerPage={pageLimit.limit}
+              count={props.dataCount}
+              onPageChange={props.handlePageChange}
+              onRowsPerPageChange={props.handleLimitChange}
+              page={props.pageLimit.page}
+              rowsPerPage={props.pageLimit.limit}
               rowsPerPageOptions={[25, 50, 75, 100]}
             />
           )}
@@ -144,4 +108,4 @@ const ParkedNumbers = () => {
   );
 };
 
-export default ParkedNumbers;
+export default withPaginatedApi(withTheme(ParkedNumberComponent), API_ENDPOINT);

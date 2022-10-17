@@ -5,7 +5,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import PageHeader from 'src/components/Headers/PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import ParkedNumbersTable from 'src/content/Support/Numbers/Parked';
+import ParkedNumberComponent from 'src/content/Support/Numbers/Parked';
 import SidebarLayout from 'src/layouts/SidebarLayout';
 
 const ParkedNumbers = () => {
@@ -27,7 +27,7 @@ const ParkedNumbers = () => {
       <Container maxWidth="lg">
         <Grid container direction="row" justifyContent="center" alignItems="stretch" spacing={4}>
           <Grid item xs={12}>
-            <ParkedNumbersTable />
+            <ParkedNumberComponent />
           </Grid>
         </Grid>
       </Container>
