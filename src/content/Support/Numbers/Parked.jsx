@@ -16,14 +16,47 @@ import {
   Typography,
 } from '@mui/material';
 import { withTheme } from '@mui/styles';
+import { useState } from 'react';
 import ReactCountryFlag from 'react-country-flag';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { toast } from 'react-toastify';
 
 import withPaginatedApi from 'src/components/Content/APIPage';
+import ConfirmationDialog from 'src/components/Dialog/ConfirmationDialog';
 
 const API_ENDPOINT = 'phone_numbers/parked';
 const ParkedNumberComponent = (props) => {
+  const [open, setOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
+
+  const handleUnparkNumberEvent = (data) => {
+    setOpen(false);
+
+    switch (data.action) {
+      case 'Unpark':
+        let new_data = data.props.apiData.filter((phoneNumber) => phoneNumber.phone_number != data.phone_number);
+        data.props.setApiData(new_data);
+        toast.success(`${data.phone_number} unparked`);
+        break;
+      case 'dismiss':
+      default:
+        break;
+    }
+  };
+
+  const buildUnparkModalData = (phoneNumber, props) => ({
+    title: `Are you sure you want to unpark this number ?`,
+    content: (
+      <>
+        <ReactCountryFlag countryCode={phoneNumber.iso_country} /> {phoneNumber.phone_number}
+      </>
+    ),
+    acceptButtonText: 'Unpark',
+    phone_number: phoneNumber.phone_number,
+    props: props,
+  });
+
   return (
     <Card>
       <Card>
@@ -38,6 +71,7 @@ const ParkedNumberComponent = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
+              <ConfirmationDialog open={open} handleDialogResponse={handleUnparkNumberEvent} data={modalData} />
               {props.apiData.map((phoneNumber, index) => {
                 return (
                   <TableRow hover key={index}>
@@ -66,20 +100,26 @@ const ParkedNumberComponent = (props) => {
                       {props.isLoading ? (
                         <Skeleton />
                       ) : (
-                        <Tooltip title="Unpark number" arrow>
-                          <IconButton
-                            sx={{
-                              '&:hover': {
-                                background: props.theme.colors.primary.lighter,
-                              },
-                              color: props.theme.palette.primary.main,
-                            }}
-                            color="inherit"
-                            size="small"
-                          >
-                            <LockOpenOutlinedIcon fontSize="small" />
-                          </IconButton>
-                        </Tooltip>
+                        <>
+                          <Tooltip title="Unpark number" arrow>
+                            <IconButton
+                              sx={{
+                                '&:hover': {
+                                  background: props.theme.colors.primary.lighter,
+                                },
+                                color: props.theme.palette.primary.main,
+                              }}
+                              color="inherit"
+                              size="small"
+                              onClick={() => {
+                                setModalData(buildUnparkModalData(phoneNumber, props));
+                                setOpen(true);
+                              }}
+                            >
+                              <LockOpenOutlinedIcon fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
+                        </>
                       )}
                     </TableCell>
                   </TableRow>
@@ -94,7 +134,7 @@ const ParkedNumberComponent = (props) => {
           ) : (
             <TablePagination
               component="div"
-              count={props.dataCount}
+              count={props.apiDataCount}
               onPageChange={props.handlePageChange}
               onRowsPerPageChange={props.handleLimitChange}
               page={props.pageLimit.page}

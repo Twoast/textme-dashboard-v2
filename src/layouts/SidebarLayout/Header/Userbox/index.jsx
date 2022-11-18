@@ -48,7 +48,6 @@ const UserBoxDescription = styled(Typography)(
 
 const HeaderUserbox = () => {
   const { data: session } = useSession();
-  console.log(session);
   const user = {
     name: session.user.name,
     image: session.user.image,

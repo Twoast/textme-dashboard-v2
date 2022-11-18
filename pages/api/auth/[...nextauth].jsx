@@ -1,6 +1,8 @@
+import axios from 'axios';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
+var LOGIN_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/oauth/login/`;
 export default NextAuth({
   providers: [
     GoogleProvider({
@@ -16,6 +18,25 @@ export default NextAuth({
   callbacks: {
     redirect: async (url, _baseUrl) => {
       return Promise.resolve('/login');
+    },
+    signIn: async ({ user, account, profile }) => {
+      return profile.email.endsWith('@go-text.me');
+    },
+    jwt: async ({ token, user, account, profile, isNewUser }) => {
+      if (!user) return token;
+      await axios
+        .post(LOGIN_URL, { token: account.access_token })
+        .then((res) => {
+          token.accessToken = res.data.token;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      return token;
+    },
+    session: async ({ session, token, user }) => {
+      session.accessToken = token.accessToken;
+      return session;
     },
   },
 });
