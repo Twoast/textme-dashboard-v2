@@ -23,9 +23,10 @@ export default NextAuth({
       return profile.email.endsWith('@go-text.me');
     },
     jwt: async ({ token, user, account, profile, isNewUser }) => {
-      if (!user) return token;
+      if (!account) return token;
+      let access_token = account.access_token;
       await axios
-        .post(LOGIN_URL, { token: account.access_token })
+        .post(LOGIN_URL, { token: access_token })
         .then((res) => {
           token.accessToken = res.data.token;
         })
@@ -35,6 +36,7 @@ export default NextAuth({
       return token;
     },
     session: async ({ session, token, user }) => {
+      if (!token.accessToken) return false;
       session.accessToken = token.accessToken;
       return session;
     },

@@ -4,7 +4,7 @@ import { Box, Button, Card, Container, styled, Typography } from '@mui/material'
 import { pink } from '@mui/material/colors';
 import { getSession, signIn } from 'next-auth/react';
 import Head from 'next/head';
-
+import { ToastContainer } from 'react-toastify';
 import Logo from 'src/components/LogoSign';
 import BaseLayout from 'src/layouts/BaseLayout';
 
@@ -34,6 +34,7 @@ const Login = () => {
       <Head>
         <title>TextMe Dashboard - Login</title>
       </Head>
+      <ToastContainer />
       <MainContent>
         <TopWrapper>
           <Container maxWidth="md">
